@@ -1,1 +1,51 @@
 
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin - Enquete Eleições 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: #ffffff;
+      text-align: center;
+      padding-top: 60px;
+    }
+    input, button {
+      padding: 12px;
+      font-size: 18px;
+      margin: 8px;
+    }
+    button {
+      cursor: pointer;
+      background: #22c55e;
+      border: none;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔐 Painel Administrativo</h1>
+<p>Enquete Eleições 2026</p>
+
+<input type="password" id="senha" placeholder="Senha do admin">
+<br>
+<button onclick="login()">Entrar</button>
+
+<script>
+function login() {
+  const senha = document.getElementById("senha").value;
+
+  if (senha === "123456A!") {
+    window.location.href = "admin-dashboard.html";
+  } else {
+    alert("Senha incorreta ❌");
+  }
+}
+</script>
+
+</body>
+</html>
