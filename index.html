@@ -38,65 +38,66 @@
 <body>
 
   <h1>Enquete Eleições 2026</h1>
-
   <p><strong>Esta é uma enquete interativa, sem valor oficial.</strong></p>
 
   <h2>Escolha seu voto</h2>
 
-  <!-- CANDIDATOS -->
+  <!-- Candidatos -->
   <button onclick="votar('flavio')">Flávio Bolsonaro</button>
-  <button onclick="votar('ratinhojr')">Ratinho Jr.</button>
-  <button onclick="votar('luladasilva')">Lula da Sílva</button>
+  <button onclick="votar('ratinho')">Ratinho Jr.</button>
+  <button onclick="votar('lula')">Lula da Silva</button>
 
   <br><br>
 
-  <!-- BRANCO E NULO -->
+  <!-- Branco e Nulo -->
   <button onclick="votar('branco')">Voto em Branco</button>
   <button onclick="votar('nulo')">Voto Nulo</button>
 
   <br>
 
-  <!-- CONFIRMAR -->
+  <!-- Confirmar -->
   <button id="confirmar" onclick="confirmarVoto()">CONFIRMAR</button>
 
-  <!-- RESULTADOS -->
+  <!-- Resultados -->
   <div class="resultados">
     <h3>Resultados</h3>
     <p>Flávio Bolsonaro: <span id="flavio">0</span></p>
-    <p>Ratinho Jr.: <span id="candidato2">0</span></p>
-    <p>Lula da Sílva: <span id="candidato3">0</span></p>
+    <p>Ratinho Jr.: <span id="ratinho">0</span></p>
+    <p>Lula da Silva: <span id="lula">0</span></p>
     <p>Branco: <span id="branco">0</span></p>
     <p>Nulo: <span id="nulo">0</span></p>
   </div>
 
-  <!-- SONS -->
-  <audio id="somclick" src="sons/click.mp3"></audio>
-  <audio id="sombranco" src="sons/branco.mp3"></audio>
-  <audio id="somnulo" src="sons/nulo.mp3"></audio>
-  <audio id="somconfirma" src="sons/confirma.mp3"></audio>
+  <!-- Sons -->
+  <audio id="somClick" src="sons/click.mp3"></audio>
+  <audio id="somBranco" src="sons/branco.mp3"></audio>
+  <audio id="somNulo" src="sons/nulo.mp3"></audio>
+  <audio id="somConfirma" src="sons/confirma.mp3"></audio>
 
-  <!-- SCRIPT -->
+  <!-- Script -->
   <script>
     let votoSelecionado = null;
 
     let votos = {
       flavio: 0,
-      candidato2: 0,
-      candidato3: 0,
+      ratinho: 0,
+      lula: 0,
       branco: 0,
       nulo: 0
     };
 
+    function tocar(id) {
+      const audio = document.getElementById(id);
+      audio.currentTime = 0;
+      audio.play();
+    }
+
     function votar(tipo) {
       votoSelecionado = tipo;
 
-      if (tipo === "branco") {
-        document.getElementById("somBranco").play();
-      } else if (tipo === "nulo") {
-        document.getElementById("somNulo").play();
-      } else {
-        document.getElementById("somClick").play();
-      }
+      if (tipo === "branco") tocar("somBranco");
+      else if (tipo === "nulo") tocar("somNulo");
+      else tocar("somClick");
     }
 
     function confirmarVoto() {
@@ -108,7 +109,7 @@
       votos[votoSelecionado]++;
       document.getElementById(votoSelecionado).innerText = votos[votoSelecionado];
 
-      document.getElementById("somConfirma").play();
+      tocar("somConfirma");
       votoSelecionado = null;
     }
   </script>
