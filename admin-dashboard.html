@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Painel Admin - Enquete Eleições 2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background:#020617;
+      color:#fff;
+      padding:40px;
+    }
+    h1 { color:#22c55e }
+    .box {
+      background:#0f172a;
+      padding:20px;
+      border-radius:10px;
+      max-width:500px;
+      margin-bottom:20px;
+    }
+    input, button {
+      width:100%;
+      padding:10px;
+      margin-top:10px;
+      font-size:16px;
+    }
+    button {
+      background:#22c55e;
+      border:none;
+      cursor:pointer;
+      border-radius:6px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>⚙️ Painel Administrativo</h1>
+<p>Enquete Eleições 2026</p>
+
+<div class="box">
+  <h3>💰 Valor do PIX</h3>
+  <input type="number" id="pix" placeholder="Ex: 1.00">
+  <button onclick="salvarPix()">Salvar valor</button>
+</div>
+
+<div class="box">
+  <h3>🗳️ Candidatos (até 3)</h3>
+  <input id="c1" placeholder="Candidato 1">
+  <input id="c2" placeholder="Candidato 2">
+  <input id="c3" placeholder="Candidato 3">
+  <button onclick="salvarCandidatos()">Salvar candidatos</button>
+</div>
+
+<script>
+function salvarPix(){
+  localStorage.setItem("valorPix", document.getElementById("pix").value);
+  alert("Valor do PIX salvo ✅");
+}
+
+function salvarCandidatos(){
+  localStorage.setItem("c1", c1.value);
+  localStorage.setItem("c2", c2.value);
+  localStorage.setItem("c3", c3.value);
+  alert("Candidatos salvos ✅");
+}
+</script>
+
+</body>
+</html>
