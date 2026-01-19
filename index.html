@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Enquete Eleições 2026</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<h1>🗳️ Enquete Eleições 2026</h1>
+<p class="aviso">Esta é uma enquete interativa, sem valor oficial.</p>
+
+<div class="urna">
+  <button onclick="votar('candidato1')">Candidato 1</button>
+  <button onclick="votar('candidato2')">Candidato 2</button>
+  <button onclick="votar('candidato3')">Candidato 3</button>
+  <button onclick="votar('branco')">Voto em Branco</button>
+  <button onclick="votar('nulo')">Voto Nulo</button>
+</div>
+
+<h2>📊 Resultados em tempo real</h2>
+
+<div id="resultados"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
