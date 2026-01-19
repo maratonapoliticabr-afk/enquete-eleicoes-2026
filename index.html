@@ -11,9 +11,12 @@
 <p class="aviso">Esta é uma enquete interativa, sem valor oficial.</p>
 
 <div class="urna">
-  <button onclick="votar('candidato1')">Candidato 1</button>
-  <button onclick="votar('candidato2')">Candidato 2</button>
-  <button onclick="votar('candidato3')">Candidato 3</button>
+  <div id="candidatos"></div>
+<div id="candidatos"></div>
+  
+<button onclick="votar('branco')">Voto em Branco</button>
+<button onclick="votar('nulo')">Voto Nulo</button>
+
   <button onclick="votar('branco')">Voto em Branco</button>
   <button onclick="votar('nulo')">Voto Nulo</button>
 </div>
@@ -23,5 +26,24 @@
 <div id="resultados"></div>
 
 <script src="script.js"></script>
+  <script>
+const candidatosDiv = document.getElementById("candidatos");
+
+const candidatos = [
+  localStorage.getItem("c1"),
+  localStorage.getItem("c2"),
+  localStorage.getItem("c3")
+];
+
+candidatos.forEach(nome => {
+  if (nome && nome.trim() !== "") {
+    const btn = document.createElement("button");
+    btn.textContent = nome;
+    btn.onclick = () => votar(nome);
+    candidatosDiv.appendChild(btn);
+  }
+});
+</script>
+
 </body>
 </html>
