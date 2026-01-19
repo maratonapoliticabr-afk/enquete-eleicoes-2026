@@ -1,105 +1,117 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Enquete Eleições 2026</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 20px;
+      text-align: center;
+    }
+
+    button {
+      padding: 12px 20px;
+      margin: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #confirmar {
+      background: green;
+      color: white;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+
+    .resultados {
+      margin-top: 30px;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>🗳️ Enquete Eleições 2026</h1>
-<p class="aviso">Esta é uma enquete interativa, sem valor oficial.</p>
+  <h1>Enquete Eleições 2026</h1>
 
-<div class="urna">
-  <div id="candidatos"></div>
-  <div id="candidatos"></div>
+  <p><strong>Esta é uma enquete interativa, sem valor oficial.</strong></p>
 
-  
- <button onclick="votar('branco')">Voto em Branco</button>
+  <h2>Escolha seu voto</h2>
+
+  <!-- CANDIDATOS -->
+  <button onclick="votar('flavio')">Flávio Bolsonaro</button>
+  <button onclick="votar('candidato2')">Candidato 2</button>
+  <button onclick="votar('candidato3')">Candidato 3</button>
+
+  <br><br>
+
+  <!-- BRANCO E NULO -->
+  <button onclick="votar('branco')">Voto em Branco</button>
   <button onclick="votar('nulo')">Voto Nulo</button>
-</div>
 
-<h2>📊 Resultados em tempo real</h2>
+  <br>
 
- <h2>📊 Resultado</h2>
-<div id="resultado"></div>
- 
-<div id="resultados"></div>
+  <!-- CONFIRMAR -->
+  <button id="confirmar" onclick="confirmarVoto()">CONFIRMAR</button>
 
-<script src="script.js"></script>
+  <!-- RESULTADOS -->
+  <div class="resultados">
+    <h3>Resultados</h3>
+    <p>Flávio Bolsonaro: <span id="flavio">0</span></p>
+    <p>Candidato 2: <span id="candidato2">0</span></p>
+    <p>Candidato 3: <span id="candidato3">0</span></p>
+    <p>Branco: <span id="branco">0</span></p>
+    <p>Nulo: <span id="nulo">0</span></p>
+  </div>
+
+  <!-- SONS -->
+  <audio id="somClick" src="sons/click.mp3"></audio>
+  <audio id="somBranco" src="sons/branco.mp3"></audio>
+  <audio id="somNulo" src="sons/nulo.mp3"></audio>
+  <audio id="somConfirma" src="sons/confirma.mp3"></audio>
+
+  <!-- SCRIPT -->
   <script>
-const candidatosDiv = document.getElementById("candidatos");
+    let votoSelecionado = null;
 
-const candidatos = [
-  localStorage.getItem("c1"),
-  localStorage.getItem("c2"),
-  localStorage.getItem("c3")
-];
+    let votos = {
+      flavio: 0,
+      candidato2: 0,
+      candidato3: 0,
+      branco: 0,
+      nulo: 0
+    };
 
-candidatos.forEach(nome => {
-  if (nome && nome.trim() !== "") {
-    const btn = document.createElement("button");
-    btn.textContent = nome;
-    btn.onclick = () => votar(nome);
-    candidatosDiv.appendChild(btn);
-  }
-});
-</script>
+    function votar(tipo) {
+      votoSelecionado = tipo;
 
-<script>
-function votar(nome) {
-  // Busca votos salvos ou cria vazio
-  let votos = JSON.parse(localStorage.getItem("votos")) || {};
+      if (tipo === "branco") {
+        document.getElementById("somBranco").play();
+      } else if (tipo === "nulo") {
+        document.getElementById("somNulo").play();
+      } else {
+        document.getElementById("somClick").play();
+      }
+    }
 
-  // Se ainda não existir, inicia com zero
-  if (!votos[nome]) {
-    votos[nome] = 0;
-  }
+    function confirmarVoto() {
+      if (!votoSelecionado) {
+        alert("Selecione um voto primeiro");
+        return;
+      }
 
-  // Soma o voto
-  votos[nome]++;
+      votos[votoSelecionado]++;
+      document.getElementById(votoSelecionado).innerText = votos[votoSelecionado];
 
-  // Salva novamente
-  localStorage.setItem("votos", JSON.stringify(votos));
-
-  // Atualiza o resultado na tela
-  atualizarResultado();
-}
-
-function atualizarResultado() {
-  const resultadoDiv = document.getElementById("resultado");
-  resultadoDiv.innerHTML = "";
-
-  let votos = JSON.parse(localStorage.getItem("votos")) || {};
-  let total = 0;
-
-  for (let v in votos) {
-    total += votos[v];
-  }
-
-  for (let v in votos) {
-    const porcentagem = total > 0
-      ? ((votos[v] / total) * 100).toFixed(1)
-      : 0;
-
-    resultadoDiv.innerHTML += `
-      <p><strong>${v}</strong>: ${votos[v]} voto(s) — ${porcentagem}%</p>
-    `;
-  }
-}
-
-// Atualiza ao abrir a página
-atualizarResultado();
-</script>
-  
-  flavio: 0,
-  candidato2: 0,
-  candidato3: 0,
-  branco: 0,
-  nulo: 0
-};
-
-
+      document.getElementById("somConfirma").play();
+      votoSelecionado = null;
+    }
+  </script>
 
 </body>
 </html>
