@@ -20,6 +20,9 @@
 
 <h2>📊 Resultados em tempo real</h2>
 
+ <h2>📊 Resultado</h2>
+<div id="resultado"></div>
+ 
 <div id="resultados"></div>
 
 <script src="script.js"></script>
@@ -58,9 +61,36 @@ function votar(nome) {
   // Salva novamente
   localStorage.setItem("votos", JSON.stringify(votos));
 
-  alert("Voto computado para: " + nome + " ✅");
+  // Atualiza o resultado na tela
+  atualizarResultado();
 }
+
+function atualizarResultado() {
+  const resultadoDiv = document.getElementById("resultado");
+  resultadoDiv.innerHTML = "";
+
+  let votos = JSON.parse(localStorage.getItem("votos")) || {};
+  let total = 0;
+
+  for (let v in votos) {
+    total += votos[v];
+  }
+
+  for (let v in votos) {
+    const porcentagem = total > 0
+      ? ((votos[v] / total) * 100).toFixed(1)
+      : 0;
+
+    resultadoDiv.innerHTML += `
+      <p><strong>${v}</strong>: ${votos[v]} voto(s) — ${porcentagem}%</p>
+    `;
+  }
+}
+
+// Atualiza ao abrir a página
+atualizarResultado();
 </script>
+
 
 </body>
 </html>
