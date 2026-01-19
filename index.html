@@ -42,5 +42,25 @@ candidatos.forEach(nome => {
 });
 </script>
 
+<script>
+function votar(nome) {
+  // Busca votos salvos ou cria vazio
+  let votos = JSON.parse(localStorage.getItem("votos")) || {};
+
+  // Se ainda não existir, inicia com zero
+  if (!votos[nome]) {
+    votos[nome] = 0;
+  }
+
+  // Soma o voto
+  votos[nome]++;
+
+  // Salva novamente
+  localStorage.setItem("votos", JSON.stringify(votos));
+
+  alert("Voto computado para: " + nome + " ✅");
+}
+</script>
+
 </body>
 </html>
