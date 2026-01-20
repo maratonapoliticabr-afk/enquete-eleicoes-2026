@@ -1,118 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Enquete Eleições 2026</title>
+<meta charset="UTF-8">
+<title>Enquete Eleições 2026</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f2f2f2;
-      padding: 20px;
-      text-align: center;
-    }
-
-    button {
-      padding: 12px 20px;
-      margin: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
-    #confirmar {
-      background: green;
-      color: white;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    .resultados {
-      margin-top: 30px;
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-    }
-  </style>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f1f1f1;
+  text-align: center;
+  padding: 20px;
+}
+button {
+  width: 320px;
+  padding: 15px;
+  margin: 8px auto;
+  font-size: 18px;
+  display: block;
+  cursor: pointer;
+}
+#resultado {
+  margin-top: 20px;
+  font-size: 18px;
+}
+.aviso {
+  margin-top: 25px;
+  color: red;
+  font-weight: bold;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>Enquete Eleições 2026</h1>
-  <p><strong>Esta é uma enquete interativa, sem valor oficial.</strong></p>
+<h1>Enquete Eleições 2026</h1>
 
-  <h2>Escolha seu voto</h2>
+<button onclick="selecionar('c1')">Flávio Bolsonaro</button>
+<button onclick="selecionar('c2')">Ratinho Jr.</button>
+<button onclick="selecionar('c3')">Lula da Silva</button>
+<button onclick="selecionar('branco')">Voto em Branco</button>
+<button onclick="selecionar('nulo')">Voto Nulo</button>
 
-  <!-- Candidatos -->
-  <button onclick="votar('flavio')">Flávio Bolsonaro</button>
-  <button onclick="votar('ratinho')">Ratinho Jr.</button>
-  <button onclick="votar('lula')">Lula da Silva</button>
+<button onclick="confirmar()">CONFIRMAR</button>
 
-  <br><br>
+<div id="resultado"></div>
 
-  <!-- Branco e Nulo -->
-  <button onclick="votar('branco')">Voto em Branco</button>
-  <button onclick="votar('nulo')">Voto Nulo</button>
+<div class="aviso">
+Esta é uma enquete interativa, sem valor oficial.
+</div>
 
-  <br>
+<audio id="somClick" src="sons/click.mp3"></audio>
+<audio id="somConfirma" src="sons/confirma.mp3"></audio>
 
-  <!-- Confirmar -->
-  <button id="confirmar" onclick="confirmarVoto()">CONFIRMAR</button>
+<script>
+let selecionado = "";
 
-  <!-- Resultados -->
-  <div class="resultados">
-    <h3>Resultados</h3>
-    <p>Flávio Bolsonaro: <span id="flavio">0</span></p>
-    <p>Ratinho Jr.: <span id="ratinho">0</span></p>
-    <p>Lula da Silva: <span id="lula">0</span></p>
-    <p>Branco: <span id="branco">0</span></p>
-    <p>Nulo: <span id="nulo">0</span></p>
-  </div>
+let votos = JSON.parse(localStorage.getItem("urna2026")) || {
+  c1: 0,
+  c2: 0,
+  c3: 0,
+  branco: 0,
+  nulo: 0
+};
 
-  <!-- Sons -->
-  <audio id="somClick" src="sons/click.mp3"></audio>
-  <audio id="somBranco" src="sons/branco.mp3"></audio>
-  <audio id="somNulo" src="sons/nulo.mp3"></audio>
-  <audio id="somConfirma" src="sons/confirma.mp3"></audio>
+function selecionar(id) {
+  selecionado = id;
+  document.getElementById("somClick").play();
+}
 
-  <!-- Script -->
-  <script>
-    let votoSelecionado = null;
+function confirmar() {
+  if (selecionado === "") {
+    alert("Selecione um voto.");
+    return;
+  }
 
-    let votos = {
-      flavio: 0,
-      ratinho: 0,
-      lula: 0,
-      branco: 0,
-      nulo: 0
-    };
+  votos[selecionado]++;
+  localStorage.setItem("urna2026", JSON.stringify(votos));
+  document.getElementById("somConfirma").play();
+  selecionado = "";
+  atualizar();
+}
 
-    function tocar(id) {
-      const audio = document.getElementById(id);
-      audio.currentTime = 0;
-      audio.play();
-    }
+function atualizar() {
+  const nomes = {
+    c1: "Flávio Bolsonaro",
+    c2: "Ratinho Jr.",
+    c3: "Lula da Silva",
+    branco: "Branco",
+    nulo: "Nulo"
+  };
 
-    function votar(tipo) {
-      votoSelecionado = tipo;
+  let total = Object.values(votos).reduce((a, b) => a + b, 0);
+  let html = "<h3>Resultado</h3>";
 
-      if (tipo === "branco") tocar("somBranco");
-      else if (tipo === "nulo") tocar("somNulo");
-      else tocar("somClick");
-    }
+  for (let k in votos) {
+    let p = total ? ((votos[k] / total) * 100).toFixed(1) : 0;
+    html += `${nomes[k]}: ${votos[k]} votos (${p}%)<br>`;
+  }
 
-    function confirmarVoto() {
-      if (!votoSelecionado) {
-        alert("Selecione um voto primeiro");
-        return;
-      }
+  document.getElementById("resultado").innerHTML = html;
+}
 
-      votos[votoSelecionado]++;
-      document.getElementById(votoSelecionado).innerText = votos[votoSelecionado];
-
-      tocar("somConfirma");
-      votoSelecionado = null;
-    }
-  </script>
+atualizar();
+</script>
 
 </body>
 </html>
