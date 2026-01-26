@@ -1,24 +1,24 @@
-let votos = {
-  candidato1: 0,
-  candidato2: 0,
-  candidato3: 0,
-  branco: 0,
-  nulo: 0
-};
+// Inicializa votos no LocalStorage
+const candidatos = ['lula', 'ratinho', 'flavio', 'branco', 'nulo'];
 
-function votar(opcao) {
-  votos[opcao]++;
-  atualizarResultados();
-}
-
-function atualizarResultados() {
-  let total = Object.values(votos).reduce((a, b) => a + b, 0);
-  let html = "";
-
-  for (let opcao in votos) {
-    let percentual = total > 0 ? ((votos[opcao] / total) * 100).toFixed(1) : 0;
-    html += `<p>${opcao}: ${votos[opcao]} votos (${percentual}%)</p>`;
+candidatos.forEach(c => {
+  if (!localStorage.getItem(c)) {
+    localStorage.setItem(c, 0);
   }
+});
 
-  document.getElementById("resultados").innerHTML = html;
+function votar(candidato) {
+  let votos = parseInt(localStorage.getItem(candidato));
+  votos++;
+  localStorage.setItem(candidato, votos);
+  atualizarTela();
 }
+
+function atualizarTela() {
+  candidatos.forEach(c => {
+    document.getElementById(c).innerText = localStorage.getItem(c);
+  });
+}
+
+// Atualiza ao abrir a página
+atualizarTela();
