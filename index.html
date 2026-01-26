@@ -39,7 +39,6 @@
     .selecionado {
       font-size: 20px;
       font-weight: bold;
-      color: #000;
     }
 
     .botoes button {
@@ -77,34 +76,34 @@
 
 <body>
 
-  <div class="urna">
+<div class="urna">
 
-    <div class="tela">
-      <h2>Seu voto:</h2>
-      <div id="escolha" class="selecionado">Nenhum</div>
-    </div>
-
-    <div class="botoes">
-      <button onclick="selecionar('Flávio Bolsonaro')">Flávio Bolsonaro</button>
-      <button onclick="selecionar('Lula da Silva')">Lula da Silva</button>
-      <button onclick="selecionar('Ratinho Jr')">Ratinho Jr</button>
-
-      <button class="branco" onclick="selecionar('Branco')">VOTO EM BRANCO</button>
-      <button class="nulo" onclick="selecionar('Nulo')">VOTO NULO</button>
-
-      <button class="confirma" onclick="confirmar()">CONFIRMAR</button>
-    </div>
-
-    <div class="resultados">
-      <strong>Resultado:</strong><br>
-      Flávio Bolsonaro: <span id="v1">0</span><br>
-      Lula da Silva: <span id="v2">0</span><br>
-      Ratinho Jr: <span id="v3">0</span><br>
-      Branco: <span id="vb">0</span><br>
-      Nulo: <span id="vn">0</span>
-    </div>
-
+  <div class="tela">
+    <h2>Seu voto:</h2>
+    <div id="escolha" class="selecionado">Nenhum</div>
   </div>
+
+  <div class="botoes">
+    <button onclick="selecionar('Flávio Bolsonaro')">Flávio Bolsonaro</button>
+    <button onclick="selecionar('Lula da Silva')">Lula da Silva</button>
+    <button onclick="selecionar('Ratinho Jr')">Ratinho Jr</button>
+
+    <button class="branco" onclick="selecionar('Branco')">VOTO EM BRANCO</button>
+    <button class="nulo" onclick="selecionar('Nulo')">VOTO NULO</button>
+
+    <button class="confirma" onclick="confirmar()">CONFIRMAR</button>
+  </div>
+
+  <div class="resultados">
+    <strong>Resultado:</strong><br>
+    Flávio Bolsonaro: <span id="v1">0</span> (<span id="p1">0%</span>)<br>
+    Lula da Silva: <span id="v2">0</span> (<span id="p2">0%</span>)<br>
+    Ratinho Jr: <span id="v3">0</span> (<span id="p3">0%</span>)<br>
+    Branco: <span id="vb">0</span> (<span id="pb">0%</span>)<br>
+    Nulo: <span id="vn">0</span> (<span id="pn">0%</span>)
+  </div>
+
+</div>
 
 <script>
   let votoAtual = null;
@@ -129,6 +128,23 @@
     }
 
     votos[votoAtual]++;
+    atualizarResultados();
+
+    votoAtual = null;
+    document.getElementById("escolha").innerText = "Voto computado ✔";
+  }
+
+  function atualizarResultados() {
+    const total =
+      votos["Flávio Bolsonaro"] +
+      votos["Lula da Silva"] +
+      votos["Ratinho Jr"] +
+      votos["Branco"] +
+      votos["Nulo"];
+
+    function perc(v) {
+      return total === 0 ? "0%" : ((v / total) * 100).toFixed(1) + "%";
+    }
 
     document.getElementById("v1").innerText = votos["Flávio Bolsonaro"];
     document.getElementById("v2").innerText = votos["Lula da Silva"];
@@ -136,8 +152,11 @@
     document.getElementById("vb").innerText = votos["Branco"];
     document.getElementById("vn").innerText = votos["Nulo"];
 
-    votoAtual = null;
-    document.getElementById("escolha").innerText = "Voto computado ✔";
+    document.getElementById("p1").innerText = perc(votos["Flávio Bolsonaro"]);
+    document.getElementById("p2").innerText = perc(votos["Lula da Silva"]);
+    document.getElementById("p3").innerText = perc(votos["Ratinho Jr"]);
+    document.getElementById("pb").innerText = perc(votos["Branco"]);
+    document.getElementById("pn").innerText = perc(votos["Nulo"]);
   }
 </script>
 
