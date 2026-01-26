@@ -7,27 +7,44 @@
 </head>
 <body>
 
-<h1>Urna Eletrônica Digital</h1>
+<h1>URNA ELETRÔNICA</h1>
 
 <div class="urna">
 
-  <button onclick="votar('lula')">Lula da Silva</button>
-  <button onclick="votar('ratinho')">Ratinho Jr.</button>
-  <button onclick="votar('flavio')">Flávio Bolsonaro</button>
-  <button onclick="votar('branco')">Voto em Branco</button>
-  <button onclick="votar('nulo')">Voto Nulo</button>
+  <!-- TELA DO CANDIDATO -->
+  <div class="tela">
+    <p>SEU VOTO PARA</p>
+    <h2 id="cargo">Presidente</h2>
+
+    <img id="foto" src="" alt="Foto do candidato">
+
+    <h3 id="nome">Digite o número</h3>
+    <p id="numero"></p>
+  </div>
+
+  <!-- TECLADO -->
+  <div class="teclado">
+    <div class="numeros">
+      <button onclick="digitar(1)">1</button>
+      <button onclick="digitar(2)">2</button>
+      <button onclick="digitar(3)">3</button>
+      <button onclick="digitar(4)">4</button>
+      <button onclick="digitar(5)">5</button>
+      <button onclick="digitar(6)">6</button>
+      <button onclick="digitar(7)">7</button>
+      <button onclick="digitar(8)">8</button>
+      <button onclick="digitar(9)">9</button>
+      <button onclick="digitar(0)">0</button>
+    </div>
+
+    <div class="acoes">
+      <button class="branco" onclick="votarBranco()">BRANCO</button>
+      <button class="corrige" onclick="corrige()">CORRIGE</button>
+      <button class="confirma" onclick="confirma()">CONFIRMA</button>
+    </div>
+  </div>
 
 </div>
-
-<h2>📊 Resultado em Tempo Real</h2>
-
-<ul>
-  <li>Lula da Silva: <span id="lula">0</span></li>
-  <li>Ratinho Jr.: <span id="ratinho">0</span></li>
-  <li>Flávio Bolsonaro: <span id="flavio">0</span></li>
-  <li>Branco: <span id="branco">0</span></li>
-  <li>Nulo: <span id="nulo">0</span></li>
-</ul>
 
 <script src="script.js"></script>
 </body>
