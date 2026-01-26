@@ -1,69 +1,51 @@
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+let votos = {
+  "flavio": 0,
+  "lula": 0,
+  "ratinho": 0,
+  "branco": 0,
+  "nulo": 0
+};
 
-<script>
-  // CONFIGURAÇÃO FIREBASE
-  const firebaseConfig = {
-    apiKey: "AIzaSyAmrXYsq92CCO77M_Lgfsgnsnh2vwiW15E",
-    authDomain: "enquete-eleicoes-2026.firebaseapp.com",
-    projectId: "enquete-eleicoes-2026",
-    storageBucket: "enquete-eleicoes-2026.firebasestorage.app",
-    messagingSenderId: "205259728257",
-    appId: "1:205259728257:web:a47bd907144759a468b480"
-  };
+let votoAtual = null;
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+function selecionar(nome) {
+  votoAtual = nome;
+  document.getElementById("escolha").innerText = nome;
+}
 
-  const docRef = db.collection("votos").limit(1);
-
-  let votoAtual = null;
-
-  function selecionar(nome) {
-    votoAtual = nome;
-    document.getElementById("escolha").innerText = nome;
+function confirmar() {
+  if (!votoAtual) {
+    alert("Escolha um candidato");
+    return;
   }
 
-  function confirmar() {
-    if (!votoAtual) {
-      alert("Escolha um candidato");
-      return;
-    }
+  let campo = "";
+  if (votoAtual === "Flávio Bolsonaro") campo = "flavio";
+  else if (votoAtual === "Lula") campo = "lula";
+  else if (votoAtual === "Ratinho Jr") campo = "ratinho";
+  else if (votoAtual === "Branco") campo = "branco";
+  else campo = "nulo";
 
-    docRef.get().then(snapshot => {
-      const doc = snapshot.docs[0];
-      const id = doc.id;
+  votos[campo] += 1;
 
-      const campo = votoAtual.toLowerCase().includes("lula") ? "lula" :
-                    votoAtual.toLowerCase().includes("ratinho") ? "ratinho" :
-                    votoAtual.toLowerCase().includes("flávio") ? "flavio" :
-                    votoAtual === "Branco" ? "branco" : "nulo";
+  atualizarResultados();
+  votoAtual = null;
+  document.getElementById("escolha").innerText = "Voto computado ✔";
+}
 
-      db.collection("votos").doc(id).update({
-        [campo]: firebase.firestore.FieldValue.increment(1)
-      });
+function atualizarResultados() {
+  const total = votos.flavio + votos.lula + votos.ratinho + votos.branco + votos.nulo;
+  const p = v => total === 0 ? "0%" : ((v / total) * 100).toFixed(1) + "%";
 
-      votoAtual = null;
-      document.getElementById("escolha").innerText = "Voto computado ✔";
-    });
-  }
+  document.getElementById("v1").innerText = votos.flavio;
+  document.getElementById("v2").innerText = votos.lula;
+  document.getElementById("v3").innerText = votos.ratinho;
+  document.getElementById("vb").innerText = votos.branco;
+  document.getElementById("vn").innerText = votos.nulo;
 
-  db.collection("votos").onSnapshot(snapshot => {
-    const d = snapshot.docs[0].data();
-
-    const total = d.lula + d.ratinho + d.flavio + d.branco + d.nulo;
-    const p = v => total === 0 ? "0%" : ((v / total) * 100).toFixed(1) + "%";
-
-    document.getElementById("v1").innerText = d.flavio;
-    document.getElementById("v2").innerText = d.lula;
-    document.getElementById("v3").innerText = d.ratinho;
-    document.getElementById("vb").innerText = d.branco;
-    document.getElementById("vn").innerText = d.nulo;
-
-    document.getElementById("p1").innerText = p(d.flavio);
-    document.getElementById("p2").innerText = p(d.lula);
-    document.getElementById("p3").innerText = p(d.ratinho);
-    document.getElementById("pb").innerText = p(d.branco);
-    document.getElementById("pn").innerText = p(d.nulo);
-  });
-</script>
+  document.getElementById("p1").innerText = p(votos.flavio);
+  document.getElementById("p2").innerText = p(votos.lula);
+  document.getElementById("p3").innerText = p(votos.ratinho);
+  document.getElementById("pb").innerText = p(votos.branco);
+  document.getElementById("pn").innerText = p(votos.nulo);
+}
