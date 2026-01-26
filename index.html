@@ -1,122 +1,34 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<title>Enquete Eleições 2026</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  text-align: center;
-  padding: 20px;
-}
-h1 {
-  margin-bottom: 5px;
-}
-.aviso {
-  color: red;
-  font-size: 14px;
-  margin-bottom: 20px;
-}
-button {
-  width: 100%;
-  max-width: 400px;
-  padding: 15px;
-  margin: 8px auto;
-  font-size: 18px;
-  cursor: pointer;
-  display: block;
-}
-.confirmar {
-  background: green;
-  color: white;
-  font-weight: bold;
-}
-.resultado {
-  margin-top: 25px;
-  font-size: 16px;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Urna Eletrônica Digital</title>
+  <link rel="stylesheet" href="estilo.css">
 </head>
-
 <body>
 
-<h1>Enquete Eleições 2026</h1>
-<div class="aviso">
-Esta é uma enquete interativa, sem valor oficial.
+<h1>Urna Eletrônica Digital</h1>
+
+<div class="urna">
+
+  <button onclick="votar('lula')">Lula da Silva</button>
+  <button onclick="votar('ratinho')">Ratinho Jr.</button>
+  <button onclick="votar('flavio')">Flávio Bolsonaro</button>
+  <button onclick="votar('branco')">Voto em Branco</button>
+  <button onclick="votar('nulo')">Voto Nulo</button>
+
 </div>
 
-<!-- BOTÕES DE VOTO -->
-<button onclick="selecionar('flavio')">Flávio Bolsonaro</button>
-<button onclick="selecionar('ratinho')">Ratinho Jr</button>
-<button onclick="selecionar('lula')">Lula da Silva</button>
-<button onclick="selecionar('branco')">Voto em Branco</button>
-<button onclick="selecionar('nulo')">Voto Nulo</button>
+<h2>📊 Resultado em Tempo Real</h2>
 
-<button class="confirmar" onclick="confirmarVoto()">CONFIRMAR</button>
+<ul>
+  <li>Lula da Silva: <span id="lula">0</span></li>
+  <li>Ratinho Jr.: <span id="ratinho">0</span></li>
+  <li>Flávio Bolsonaro: <span id="flavio">0</span></li>
+  <li>Branco: <span id="branco">0</span></li>
+  <li>Nulo: <span id="nulo">0</span></li>
+</ul>
 
-<div class="resultado" id="resultado"></div>
-
-<script>
-let votoSelecionado = null;
-
-// recupera votos salvos ou cria do zero
-let votos = JSON.parse(localStorage.getItem("urna2026")) || {
-  flavio: 0,
-  ratinho: 0,
-  lula: 0,
-  branco: 0,
-  nulo: 0
-};
-
-function selecionar(tipo) {
-  votoSelecionado = tipo;
-}
-
-function confirmarVoto() {
-  if (!votoSelecionado) {
-    alert("Selecione um candidato ou opção de voto.");
-    return;
-  }
-
-  votos[votoSelecionado]++;
-  localStorage.setItem("urna2026", JSON.stringify(votos));
-  votoSelecionado = null;
-  atualizarResultado();
-}
-
-function atualizarResultado() {
-  const total =
-    votos.flavio +
-    votos.ratinho +
-    votos.lula +
-    votos.branco +
-    votos.nulo;
-
-  if (total === 0) {
-    document.getElementById("resultado").innerHTML =
-      "Nenhum voto computado ainda.";
-    return;
-  }
-
-  document.getElementById("resultado").innerHTML = `
-    <strong>Resultado parcial:</strong><br><br>
-    Flávio Bolsonaro: ${votos.flavio} votos (${((votos.flavio/total)*100).toFixed(1)}%)<br>
-    Ratinho Jr: ${votos.ratinho} votos (${((votos.ratinho/total)*100).toFixed(1)}%)<br>
-    Lula da Silva: ${votos.lula} votos (${((votos.lula/total)*100).toFixed(1)}%)<br>
-    Branco: ${votos.branco} votos (${((votos.branco/total)*100).toFixed(1)}%)<br>
-    Nulo: ${votos.nulo} votos (${((votos.nulo/total)*100).toFixed(1)}%)
-  `;
-}
-
-// mostra resultado ao abrir o site
-atualizarResultado();
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
