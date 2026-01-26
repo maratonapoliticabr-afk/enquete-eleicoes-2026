@@ -1,76 +1,53 @@
 body {
-  background: #cfcfcf;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, sans-serif;
+  background: #0b2c5d;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 0;
 }
 
 .urna {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
-}
-
-.tela {
-  width: 300px;
-  background: #f0f0f0;
-  border: 2px solid #000;
-  padding: 15px;
-  margin-right: 20px;
-}
-
-.titulo {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.visor {
-  margin-top: 20px;
-  padding: 15px;
-  background: #fff;
-  border: 2px solid #000;
-  font-size: 18px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.teclado {
-  background: #ddd;
+  max-width: 420px;
+  margin: 30px auto;
+  background: #1c1c1c;
   padding: 20px;
-  border: 2px solid #000;
+  border-radius: 10px;
 }
 
-.teclado button {
-  width: 260px;
-  padding: 15px;
-  margin-bottom: 10px;
-  font-size: 18px;
+h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 100%;
+  padding: 18px;
+  margin: 10px 0;
+  font-size: 20px;
   font-weight: bold;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.acoes {
-  display: flex;
-  justify-content: space-between;
+.candidato {
+  background: #2f2f2f;
+  color: white;
 }
 
 .branco {
-  background: white;
+  background: #b5b5b5;
+  color: black;
 }
 
 .nulo {
-  background: red;
+  background: #c0392b;
   color: white;
 }
 
 .confirmar {
-  background: green;
+  background: #00a651;
   color: white;
-  font-size: 20px;
-}
-
-.resultado {
-  margin: 30px auto;
-  width: 320px;
-  background: white;
-  padding: 15px;
-  border: 2px solid black;
+  font-size: 22px;
 }
