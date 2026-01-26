@@ -7,30 +7,31 @@
 </head>
 <body>
 
-<div class="urna-container">
+<div class="urna">
 
   <div class="tela">
-    <h2>SEU VOTO PARA</h2>
-    <p id="escolha">Nenhum voto selecionado</p>
+    <p class="titulo">SEU VOTO PARA</p>
+    <div class="visor" id="escolha">
+      NENHUM VOTO SELECIONADO
+    </div>
   </div>
 
-  <div class="botoes">
+  <div class="teclado">
     <button onclick="votar('lula')">LULA DA SILVA</button>
     <button onclick="votar('ratinho')">RATINHO JR.</button>
     <button onclick="votar('flavio')">FLÁVIO BOLSONARO</button>
 
-    <div class="linha">
+    <div class="acoes">
       <button class="branco" onclick="votar('branco')">BRANCO</button>
       <button class="nulo" onclick="votar('nulo')">NULO</button>
+      <button class="confirmar" onclick="confirmarVoto()">CONFIRMA</button>
     </div>
-
-    <button class="confirmar" onclick="confirmarVoto()">CONFIRMA</button>
   </div>
 
 </div>
 
 <div class="resultado">
-  <h3>📊 Resultado em tempo real</h3>
+  <h3>RESULTADO</h3>
   <p>Lula: <span id="votos-lula">0</span></p>
   <p>Ratinho Jr.: <span id="votos-ratinho">0</span></p>
   <p>Flávio Bolsonaro: <span id="votos-flavio">0</span></p>
