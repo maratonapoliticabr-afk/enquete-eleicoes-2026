@@ -7,34 +7,37 @@
 </head>
 <body>
 
-  <h1>🗳️ Enquete Eleições 2026</h1>
+<div class="urna-container">
 
-  <div class="urna">
-
-    <button onclick="votar('lula')">Lula da Silva</button>
-    <button onclick="votar('ratinho')">Ratinho Jr.</button>
-    <button onclick="votar('flavio')">Flávio Bolsonaro</button>
-
-    <hr>
-
-    <button onclick="votar('branco')">Voto em Branco</button>
-    <button onclick="votar('nulo')">Voto Nulo</button>
-
-    <hr>
-
-    <button class="confirmar" onclick="confirmarVoto()">CONFIRMAR</button>
-
+  <div class="tela">
+    <h2>SEU VOTO PARA</h2>
+    <p id="escolha">Nenhum voto selecionado</p>
   </div>
 
-  <h2>📊 Resultado em tempo real</h2>
-  <ul>
-    <li>Lula da Silva: <span id="votos-lula">0</span></li>
-    <li>Ratinho Jr.: <span id="votos-ratinho">0</span></li>
-    <li>Flávio Bolsonaro: <span id="votos-flavio">0</span></li>
-    <li>Branco: <span id="votos-branco">0</span></li>
-    <li>Nulo: <span id="votos-nulo">0</span></li>
-  </ul>
+  <div class="botoes">
+    <button onclick="votar('lula')">LULA DA SILVA</button>
+    <button onclick="votar('ratinho')">RATINHO JR.</button>
+    <button onclick="votar('flavio')">FLÁVIO BOLSONARO</button>
 
-  <script src="script.js"></script>
+    <div class="linha">
+      <button class="branco" onclick="votar('branco')">BRANCO</button>
+      <button class="nulo" onclick="votar('nulo')">NULO</button>
+    </div>
+
+    <button class="confirmar" onclick="confirmarVoto()">CONFIRMA</button>
+  </div>
+
+</div>
+
+<div class="resultado">
+  <h3>📊 Resultado em tempo real</h3>
+  <p>Lula: <span id="votos-lula">0</span></p>
+  <p>Ratinho Jr.: <span id="votos-ratinho">0</span></p>
+  <p>Flávio Bolsonaro: <span id="votos-flavio">0</span></p>
+  <p>Branco: <span id="votos-branco">0</span></p>
+  <p>Nulo: <span id="votos-nulo">0</span></p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
