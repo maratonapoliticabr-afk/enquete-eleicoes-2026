@@ -1,165 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enquete Eleições 2026</title>
-
-  <style>
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      background: #e5e5e5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .urna {
-      background: #d9d9d9;
-      border: 4px solid #333;
-      width: 360px;
-      padding: 20px;
-    }
-
-    .tela {
-      background: #fff;
-      border: 2px solid #000;
-      padding: 10px;
-      margin-bottom: 15px;
-      min-height: 80px;
-    }
-
-    .tela h2 {
-      margin: 0 0 10px 0;
-      font-size: 18px;
-    }
-
-    .selecionado {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .botoes button {
-      width: 100%;
-      margin-bottom: 8px;
-      padding: 12px;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .confirma {
-      background: green;
-      color: #fff;
-      font-size: 20px;
-      font-weight: bold;
-      border: none;
-    }
-
-    .branco {
-      background: #fff;
-      border: 2px solid #000;
-    }
-
-    .nulo {
-      background: #ff9800;
-      border: none;
-    }
-
-    .resultados {
-      margin-top: 15px;
-      font-size: 14px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Urna Eletrônica</title>
+<link rel="stylesheet" href="estilo.css">
 </head>
-
 <body>
+  <div class="urna">
+    <h1>Enquete Eleições 2026</h1>
+    
+    <div class="candidatos">
+      <button onclick="selecionar('Flávio Bolsonaro')">Flávio Bolsonaro</button>
+      <button onclick="selecionar('Lula')">Lula</button>
+      <button onclick="selecionar('Ratinho Jr')">Ratinho Jr</button>
+      <button onclick="selecionar('Branco')">Branco</button>
+      <button onclick="selecionar('Nulo')">Nulo</button>
+    </div>
 
-<div class="urna">
+    <div class="confirmacao">
+      <p>Escolha: <span id="escolha">Nenhum</span></p>
+      <button onclick="confirmar()">CONFIRMAR</button>
+    </div>
 
-  <div class="tela">
-    <h2>Seu voto:</h2>
-    <div id="escolha" class="selecionado">Nenhum</div>
+    <div class="resultado">
+      <h2>Votos</h2>
+      <p>Flávio Bolsonaro: <span id="v1">0</span> (<span id="p1">0%</span>)</p>
+      <p>Lula: <span id="v2">0</span> (<span id="p2">0%</span>)</p>
+      <p>Ratinho Jr: <span id="v3">0</span> (<span id="p3">0%</span>)</p>
+      <p>Branco: <span id="vb">0</span> (<span id="pb">0%</span>)</p>
+      <p>Nulo: <span id="vn">0</span> (<span id="pn">0%</span>)</p>
+    </div>
   </div>
 
-  <div class="botoes">
-    <button onclick="selecionar('Flávio Bolsonaro')">Flávio Bolsonaro</button>
-    <button onclick="selecionar('Lula da Silva')">Lula da Silva</button>
-    <button onclick="selecionar('Ratinho Jr')">Ratinho Jr</button>
-
-    <button class="branco" onclick="selecionar('Branco')">VOTO EM BRANCO</button>
-    <button class="nulo" onclick="selecionar('Nulo')">VOTO NULO</button>
-
-    <button class="confirma" onclick="confirmar()">CONFIRMAR</button>
-  </div>
-
-  <div class="resultados">
-    <strong>Resultado:</strong><br>
-    Flávio Bolsonaro: <span id="v1">0</span> (<span id="p1">0%</span>)<br>
-    Lula da Silva: <span id="v2">0</span> (<span id="p2">0%</span>)<br>
-    Ratinho Jr: <span id="v3">0</span> (<span id="p3">0%</span>)<br>
-    Branco: <span id="vb">0</span> (<span id="pb">0%</span>)<br>
-    Nulo: <span id="vn">0</span> (<span id="pn">0%</span>)
-  </div>
-
-</div>
-
-<script>
-  let votoAtual = null;
-
-  let votos = {
-    "Flávio Bolsonaro": 0,
-    "Lula da Silva": 0,
-    "Ratinho Jr": 0,
-    "Branco": 0,
-    "Nulo": 0
-  };
-
-  function selecionar(nome) {
-    votoAtual = nome;
-    document.getElementById("escolha").innerText = nome;
-  }
-
-  function confirmar() {
-    if (!votoAtual) {
-      alert("Escolha um candidato");
-      return;
-    }
-
-    votos[votoAtual]++;
-    atualizarResultados();
-
-    votoAtual = null;
-    document.getElementById("escolha").innerText = "Voto computado ✔";
-  }
-
-  function atualizarResultados() {
-    const total =
-      votos["Flávio Bolsonaro"] +
-      votos["Lula da Silva"] +
-      votos["Ratinho Jr"] +
-      votos["Branco"] +
-      votos["Nulo"];
-
-    function perc(v) {
-      return total === 0 ? "0%" : ((v / total) * 100).toFixed(1) + "%";
-    }
-
-    document.getElementById("v1").innerText = votos["Flávio Bolsonaro"];
-    document.getElementById("v2").innerText = votos["Lula da Silva"];
-    document.getElementById("v3").innerText = votos["Ratinho Jr"];
-    document.getElementById("vb").innerText = votos["Branco"];
-    document.getElementById("vn").innerText = votos["Nulo"];
-
-    document.getElementById("p1").innerText = perc(votos["Flávio Bolsonaro"]);
-    document.getElementById("p2").innerText = perc(votos["Lula da Silva"]);
-    document.getElementById("p3").innerText = perc(votos["Ratinho Jr"]);
-    document.getElementById("pb").innerText = perc(votos["Branco"]);
-    document.getElementById("pn").innerText = perc(votos["Nulo"]);
-  }
-</script>
-<script src="script.js"></script>
-
+  <!-- Conecta a urna ao Firebase -->
+  <script src="script.js"></script>
 </body>
 </html>
