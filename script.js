@@ -1,11 +1,11 @@
 let votos = {
-  "flavio": 0,
-  "lula": 0,
-  "ratinho": 0,
-  "romeu": 0,
-  "ronaldo: 0,
-  "branco": 0,
-  "nulo": 0
+  flavio: 0,
+  lula: 0,
+  ratinho: 0,
+  romeu: 0,
+  ronaldo: 0,
+  branco: 0,
+  nulo: 0
 };
 
 let votoAtual = null;
@@ -21,16 +21,19 @@ function confirmar() {
     return;
   }
 
-  let campo = "";
-  if (votoAtual === "Flávio Bolsonaro") campo = "flavio";
-  else if (votoAtual === "Lula") campo = "lula";
-  else if (votoAtual === "Ratinho Jr") campo = "ratinho";
-  else if (votoAtual === "Romeu Zema") campo = "romeu";
-  else if (votoAtual === "Ronaldo Caiado") campo = "ronaldo";
-  else if (votoAtual === "Branco") campo = "branco";
-  else campo = "nulo";
+  let mapa = {
+    "Flávio Bolsonaro": "flavio",
+    "Lula": "lula",
+    "Ratinho Jr": "ratinho",
+    "Romeu Zema": "romeu",
+    "Ronaldo Caiado": "ronaldo",
+    "Branco": "branco",
+    "Nulo": "nulo"
+  };
 
-  votos[campo] += 1;
+  let campo = mapa[votoAtual] || "nulo";
+
+  votos[campo]++;
 
   atualizarResultados();
   votoAtual = null;
@@ -38,14 +41,14 @@ function confirmar() {
 }
 
 function atualizarResultados() {
-  const total = votos.flavio + votos.lula + votos.ratinho + votos.romeu + votos.ronaldo + votos.branco + votos.nulo;
+  const total = Object.values(votos).reduce((a, b) => a + b, 0);
   const p = v => total === 0 ? "0%" : ((v / total) * 100).toFixed(1) + "%";
 
   document.getElementById("v1").innerText = votos.flavio;
   document.getElementById("v2").innerText = votos.lula;
   document.getElementById("v3").innerText = votos.ratinho;
-  document.getElementById("v4").innerText = votos.romeu
-  document.getElementById("v5").innerText = votos.ronaldo
+  document.getElementById("v4").innerText = votos.romeu;
+  document.getElementById("v5").innerText = votos.ronaldo;
   document.getElementById("vb").innerText = votos.branco;
   document.getElementById("vn").innerText = votos.nulo;
 
@@ -57,3 +60,4 @@ function atualizarResultados() {
   document.getElementById("pb").innerText = p(votos.branco);
   document.getElementById("pn").innerText = p(votos.nulo);
 }
+
