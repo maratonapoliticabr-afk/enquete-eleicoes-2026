@@ -76,6 +76,12 @@
 
 <body>
 <script>
+  if (localStorage.getItem("pagou") !== "true") {
+    window.location.href = "pix.html";
+  }
+</script>
+
+<script>
 let usuario = sessionStorage.getItem("usuarioLogado");
 if(!usuario){
   window.location.href = "login.html";
