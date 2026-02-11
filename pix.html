@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagamento PIX - Liberar Voto</title>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #e5e5e5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .box {
+      background: #fff;
+      border: 2px solid #000;
+      padding: 20px;
+      width: 320px;
+      text-align: center;
+    }
+
+    .box h2 {
+      margin-top: 0;
+    }
+
+    .pix {
+      background: #f5f5f5;
+      border: 1px dashed #000;
+      padding: 10px;
+      margin: 10px 0;
+      font-weight: bold;
+      word-break: break-all;
+    }
+
+    .btn {
+      margin-top: 10px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background: green;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Pagamento PIX</h2>
+  <p>Para liberar seu voto, faça o pagamento via PIX:</p>
+
+  <div class="pix">
+    CHAVE PIX: marketingfuturo989@gmail.com
+  </div>
+
+  <p><strong>Valor:</strong> R$ 1,00</p>
+
+  <button class="btn" onclick="liberar()">Já paguei, liberar acesso</button>
+</div>
+
+<script>
+  function liberar() {
+    localStorage.setItem("pagou", "true");
+    window.location.href = "index.html";
+  }
+</script>
+
+</body>
+</html>
