@@ -30,13 +30,11 @@ function confirmar() {
     window.location.href = "login.html";
     return;
   }
-
-  if (usuarios[usuario].votou === true) {
+ if (usuarios[usuario].votou === true) {
     alert("Você já votou. Seu voto é único.");
     return;
   }
-
-  let mapa = {
+ let mapa = {
     "Flávio Bolsonaro": "flavio",
     "Lula": "lula",
     "Ratinho Jr": "ratinho",
