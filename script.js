@@ -21,6 +21,20 @@ function confirmar() {
     return;
   }
 
+  let usuario = sessionStorage.getItem("usuarioLogado");
+  let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+
+  if (!usuario || !usuarios || !usuarios[usuario]) {
+    alert("Sessão inválida. Faça login novamente.");
+    window.location.href = "login.html";
+    return;
+  }
+
+  if (usuarios[usuario].votou === true) {
+    alert("Você já votou. Seu voto é único.");
+    return;
+  }
+
   let mapa = {
     "Flávio Bolsonaro": "flavio",
     "Lula": "lula",
@@ -35,10 +49,14 @@ function confirmar() {
 
   votos[campo]++;
 
+  usuarios[usuario].votou = true;
+  localStorage.setItem("usuarios", JSON.stringify(usuarios));
+
   atualizarResultados();
   votoAtual = null;
   document.getElementById("escolha").innerText = "Voto computado ✔";
 }
+
 
 function atualizarResultados() {
   const total = Object.values(votos).reduce((a, b) => a + b, 0);
