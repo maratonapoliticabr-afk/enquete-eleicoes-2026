@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - Enquete Eleições 2026</title>
+
+<style>
+body{
+  font-family: Arial;
+  background:#121212;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  margin:0;
+}
+
+.box{
+  background:#fff;
+  padding:30px;
+  width:300px;
+  border-radius:10px;
+  text-align:center;
+}
+
+input,button{
+  width:100%;
+  padding:12px;
+  margin:8px 0;
+  font-size:16px;
+}
+
+button{
+  background:#2e7d32;
+  color:white;
+  border:none;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#1b5e20;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>Login / Cadastro</h2>
+  <input id="email" type="email" placeholder="Seu e-mail" required>
+  <input id="senha" type="password" placeholder="Sua senha" required>
+  <button onclick="login()">Entrar</button>
+</div>
+
+<script src="auth.js"></script>
+
+</body>
+</html>
