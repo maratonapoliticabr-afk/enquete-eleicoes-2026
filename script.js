@@ -22,10 +22,11 @@ function confirmar() {
   }
 
   let usuario = sessionStorage.getItem("usuarioLogado");
-  let usuarios = JSON.parse(localStorage.getItem("usuarios"));
+  let usuarios = JSON.parse(localStorage.getItem("usuarios") || "{}");
 
-  if (!usuario || !usuarios || !usuarios[usuario]) {
+  if (!usuario || !usuarios[usuario]) {
     alert("Sessão inválida. Faça login novamente.");
+    sessionStorage.removeItem("usuarioLogado");
     window.location.href = "login.html";
     return;
   }
@@ -49,13 +50,18 @@ function confirmar() {
 
   votos[campo]++;
 
+  // MARCA COMO VOTADO
   usuarios[usuario].votou = true;
+
+  // SALVA DE VOLTA NO LOCALSTORAGE
   localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
   atualizarResultados();
+
   votoAtual = null;
   document.getElementById("escolha").innerText = "Voto computado ✔";
 }
+
 
 
 function atualizarResultados() {
